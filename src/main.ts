@@ -26,6 +26,7 @@ async function run() {
 
     const labelName: string = await getLabelName(client, configPath);
     const labels: string[] = [];
+    console.log("getting labels", labelName);
 
     // for (const [label, globs] of labelGlobs.entries()) {
     //   core.debug(`processing ${label}`);
@@ -47,7 +48,7 @@ async function run() {
 function getPrNumber(): number | undefined {
   const pullRequest = github.context.payload.pull_request;
   if (!pullRequest) {
-    console.log(pullRequest);
+    console.log("getting pull request", pullRequest);
     return undefined;
   }
 
