@@ -1,17 +1,17 @@
-import * as core from '@actions/core';
-import * as github from '@actions/github';
-import * as yaml from 'js-yaml';
-import {Minimatch} from 'minimatch';
-import { labeledStatement } from '@babel/types';
+import * as core from "@actions/core";
+import * as github from "@actions/github";
+import * as yaml from "js-yaml";
+import { Minimatch } from "minimatch";
+import { labeledStatement } from "@babel/types";
 
 async function run() {
   try {
-    const token = core.getInput('repo-token', {required: true});
-    const configPath = core.getInput('configuration-path', {required: true});
+    const token = core.getInput("repo-token", { required: true });
+    const configPath = core.getInput("configuration-path", { required: true });
 
     const prNumber = getPrNumber();
     if (!prNumber) {
-      console.log('Could not get pull request number from context, exiting');
+      console.log("Could not get pull request number from context, exiting");
       return;
     }
 
@@ -101,7 +101,7 @@ async function getLabelName(
 
   const configObject: any = yaml.safeLoad(configurationContent);
 
-  return configObject['labelname'];
+  return configObject["labelname"];
 }
 
 async function fetchContent(
@@ -115,7 +115,7 @@ async function fetchContent(
     ref: github.context.sha
   });
 
-  return Buffer.from(response.data.content, 'base64').toString();
+  return Buffer.from(response.data.content, "base64").toString();
 }
 
 // function getLabelGlobMapFromObject(configObject: any): Map<string, string[]> {
