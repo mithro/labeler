@@ -1,8 +1,13 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import * as yaml from "js-yaml";
+import { Toolkit } from "actions-toolkit";
 import { Minimatch } from "minimatch";
 import { labeledStatement } from "@babel/types";
+
+const toolkit = new Toolkit({
+  event: ['pull_request.closed']
+});
 
 async function run() {
   try {
@@ -26,7 +31,7 @@ async function run() {
 
     const labelName: string = await getLabelName(client, configPath);
     const labels: string[] = [];
-    console.log("getting labels", labelName);
+    toolkit.log.info("getting labels", labelName);
 
     // for (const [label, globs] of labelGlobs.entries()) {
     //   core.debug(`processing ${label}`);
